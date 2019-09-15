@@ -21,4 +21,18 @@ head(train)
 survived_male <- (length(which(train$survived == 1 & train$sex == "male")) / nrow(train[which(train$sex == 'male'),])) * 100
 
 
+library(e1071)
+par(mfrow=c(1, 2))  # divide graph area in 2 columns
+
+plot(density(train$age), main="Density Plot: Pclass", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(train$age), 2)))  # density plot for 'speed'
+polygon(density(train$age), col="red")
+  
+
+cor(train$fare, train$survived)
+linearMod <- lm(train$fare ~ train$survived, data=train)  # build linear regression model on full data
+print(linearMod)
+
+plot(density(cars$dist), main="Density Plot: Distance", ylab="Frequency", sub=paste("Skewness:", round(e1071::skewness(cars$dist), 2)))  # density plot for 'dist'
+polygon(density(cars$dist), col="red")
+
 
